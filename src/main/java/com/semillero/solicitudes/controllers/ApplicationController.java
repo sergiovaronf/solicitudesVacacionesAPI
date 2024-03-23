@@ -12,20 +12,4 @@ import java.util.List;
 @RestController
 public class ApplicationController {
 
-    ISolicitud solicitudService;
-
-    @Autowired
-    public ApplicationController(SolicitudService solicitudService) {
-        this.solicitudService = solicitudService;
-    }
-
-    @GetMapping(value="/health-check")
-    private String healthCheck() {
-        return "OK";
-    }
-
-    @GetMapping(value = "/getAll")
-    private List<SolicitudEntity> getAll() {
-        return this.solicitudService.getAll();
-    }
 }

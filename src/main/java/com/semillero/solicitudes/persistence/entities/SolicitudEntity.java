@@ -1,44 +1,48 @@
 package com.semillero.solicitudes.persistence.entities;
 
+import com.semillero.solicitudes.util.enums.StateType;
 import jakarta.persistence.*;
+import lombok.*;
 
-@Entity
-@Table(name = "SOLICITUD")
+import java.time.LocalDate;
+import java.util.Date;
+
+@Entity(name = "solicitud")
+@Data
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "solicitud_vaciones")
 public class SolicitudEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "nm_id_solicitud")
+    private Integer idSolicitud;
 
-    @Basic(optional = false)
-    @Column(name = "NAME")
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "nm_id_usuario")
+    private UserEntity usuario;
 
-    @Basic(optional = false)
-    @Column(name = "DESCRIPTION")
-    private String description;
+    @Column(name = "nm_dias_solicita")
+    private Integer diasSolicita;
 
-    public int getId() {
-        return id;
-    }
+    @Column(name = "fe_fecha_inicio")
+    private LocalDate fechaInicio;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @Column(name = "fe_fecha_fin")
+    private LocalDate fechaFin;
 
-    public String getName() {
-        return name;
-    }
+    @Column(name = "fe_fecha_retorna")
+    private LocalDate fechaRetorna;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    @Column(name = "ds_estado")
+    private String estado;
 
-    public String getDescription() {
-        return description;
-    }
+    @Column(name = "ds_observaciones")
+    private String observaciones;
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    @Column(name = "fe_fecha_creacion")
+    private LocalDate fechaCreacion;
 }
