@@ -1,4 +1,9 @@
-Configuración Proyecto
+Inicio del Proyecto
+
+http://localhost:8080/solicitudVacaciones/swagger-ui/index.html
+
+SWAGGER
+
 ========================
 
 Para ejecutar el proyecto de forma adecuada, se deben tener en cuenta los siguientes puntos:
