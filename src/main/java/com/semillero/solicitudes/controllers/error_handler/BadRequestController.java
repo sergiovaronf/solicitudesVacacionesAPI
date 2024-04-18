@@ -5,6 +5,7 @@ import com.semillero.solicitudes.models.responses.ErrorReponse;
 import com.semillero.solicitudes.models.responses.ErrorsResponse;
 import com.semillero.solicitudes.util.exeptions.IdNotFoundException;
 import com.sun.xml.ws.encoding.soap.DeserializationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -23,6 +24,16 @@ public class BadRequestController {
     public BaseErrorResponse handleIdNotFound(IdNotFoundException exception){
         return ErrorReponse.builder()
                 .message(exception.getMessage())
+                .status(HttpStatus.BAD_REQUEST.name())
+                .code(HttpStatus.BAD_REQUEST.value())
+                .build();
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public BaseErrorResponse handleDataIntegrityViolation(DataIntegrityViolationException exception) {
+        return ErrorReponse.builder()
+                .message("No se puede eliminar la entidad debido a restricciones de integridad de datos.")
                 .status(HttpStatus.BAD_REQUEST.name())
                 .code(HttpStatus.BAD_REQUEST.value())
                 .build();

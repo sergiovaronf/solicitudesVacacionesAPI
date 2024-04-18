@@ -9,6 +9,7 @@ import com.semillero.solicitudes.persistence.entities.UserRoleEntity;
 import com.semillero.solicitudes.persistence.repository.PositionRepository;
 import com.semillero.solicitudes.persistence.repository.UserRoleRepository;
 import com.semillero.solicitudes.services.interfaces.IUserRole;
+import com.semillero.solicitudes.util.exeptions.IdNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -34,7 +35,6 @@ public class UserRoleService implements IUserRole {
                 .fechaCreacion(fechaActual)
                 .build();
         var userRolePersist = this.userRoleRepository.save(userRoleToPersist);
-        log.info("Rol {}", userRolePersist.getIdRol());
         return entityToResponse(userRolePersist);
     }
 
@@ -54,7 +54,7 @@ public class UserRoleService implements IUserRole {
 
     @Override
     public void delete(Integer id) {
-        var userRole = this.userRoleRepository.findById(id).orElseThrow();
+        var userRole = this.userRoleRepository.findById(id).orElseThrow(()-> new IdNotFoundException("roles"));
         this.userRoleRepository.delete(userRole);
     }
 
